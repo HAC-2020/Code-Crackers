@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifeline/register.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: Color(0xfffae6ef),
       body: Center(
         child: ScrollConfiguration(
           behavior: new ScrollBehavior()
@@ -108,7 +109,13 @@ class _LoginState extends State<Login> {
                           onTap: () {},
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () => Navigator.of(context).push(
+                            PageTransition(
+                              type: PageTransitionType.rippleMiddle,
+                              child: Register(),
+                              duration: Duration(seconds: 1),
+                            ),
+                          ),
                           child: Row(
                             children: <Widget>[
                               Text(
