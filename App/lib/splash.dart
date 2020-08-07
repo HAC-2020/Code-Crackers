@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
+import 'package:flutter_page_transition/page_transition_type.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifeline/login.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -38,8 +41,8 @@ class SplashScreen extends StatelessWidget {
             height: 40.0,
           ),
           Container(
-            height: 50.0,
-            width: 120.0,
+            height: 60.0,
+            width: 150.0,
             child: RaisedButton(
               elevation: 20.0,
               color: Colors.redAccent.shade200,
@@ -49,12 +52,16 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
               child: Text(
-                "Go ->",
-                style: GoogleFonts.lobsterTwo(
-                  fontSize: 25.0,
+                "Let's do it!",
+                style: TextStyle(fontSize: 22.0),
+              ),
+              onPressed: () => Navigator.of(context).pushReplacement(
+                PageTransition(
+                  type: PageTransitionType.slideZoomLeft,
+                  child: Login(),
+                  duration: Duration(seconds: 1),
                 ),
               ),
-              onPressed: () {},
             ),
           ),
         ],
