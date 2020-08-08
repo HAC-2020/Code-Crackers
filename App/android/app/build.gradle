@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -34,7 +35,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "abhishekdoshi.netlify.lifeline"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -51,4 +52,10 @@ android {
 
 flutter {
     source '../..'
+}
+
+dependencies {
+  implementation 'com.google.firebase:firebase-auth:19.3.0'
+  implementation 'com.google.firebase:firebase-firestore:21.4.2'
+  implementation 'com.google.firebase:firebase-analytics:17.3.0'
 }
