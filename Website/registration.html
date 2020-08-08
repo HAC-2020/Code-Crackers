@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Blood
+    </title>
+    <link rel="stylesheet" href="css/home.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <section class="heder">
+      <div class="nv">
+        <span><a href="contact.html">Sign Up</a></span>
+        <span><a href="login.html">Log In</a></span>
+      </div>
+      <div class="nv1">
+        <form>
+          <input type="text" id="username" placeholder="Full Name" /><br />
+          <input type="text" id="email" placeholder="Email ID" /><br />
+          <input type="password" id="pass" placeholder="Password" /><br />
+          <input type="number" id="phone" placeholder="Phone No" /><br /><br />
+          <input type="date" id="dob" /><br /><br />
+          <input type="text" id="city" placeholder="City" /><br />
+          <input type="text" id="state" placeholder="State" /><br />
+          Blood Group 
+          <select id="bg" name="bg">
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+          <input type="checkbox" id="donate" value="bdonor" />
+          Blood
+          <input type="checkbox" id="donate" value="platdonor" />
+           Platelets 
+          <input type="checkbox" id="donate" value="plasdonor" />
+           Plasma
+          <input type="button" id="button1" value="sign up" /><br /><br />
+        </form>
+      </div>
+    </section>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyClhKSi_PH83uLpp9Gx99NAQp_IPrCmDZw",
+        authDomain: "blood-donate-fc907.firebaseapp.com",
+        databaseURL: "https://blood-donate-fc907.firebaseio.com",
+        projectId: "blood-donate-fc907",
+        storageBucket: "blood-donate-fc907.appspot.com",
+        messagingSenderId: "387995307720",
+        appId: "1:387995307720:web:6c5a97cdbe0ade1e5cdffd",
+        measurementId: "G-VN6FHWXVG1",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="functions.js"></script>
+  </body>
+</html>
