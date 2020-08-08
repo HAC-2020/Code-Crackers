@@ -18,15 +18,15 @@
       </div>
       <div class="nv1">
         <form>
-          <input type="text" id="username" placeholder="Full Name" /><br />
-          <input type="text" id="email" placeholder="Email ID" /><br />
-          <input type="password" id="pass" placeholder="Password" /><br />
-          <input type="number" id="phone" placeholder="Phone No" /><br /><br />
-          <input type="date" id="dob" /><br /><br />
-          <input type="text" id="city" placeholder="City" /><br />
-          <input type="text" id="state" placeholder="State" /><br />
-          Blood Group 
-          <select id="bg" name="bg">
+          <input type="text" id="username" class="inp" placeholder="Full Name" /><br />
+          <input type="text" id="email" class="inp" placeholder="Email ID" /><br />
+          <input type="password" id="pass" class="inp" placeholder="Password" /><br />
+          <input type="number" id="phone"class="inp"  placeholder="Phone No" /><br /><br />
+          <input type="date" id="dob" class="inp"/><br /><br />
+          <input type="text" id="city" class="inp" placeholder="City" /><br />
+          <input type="text" id="state" class="inp" placeholder="State" /><br /><br />
+          <lable class="sel_lis" >Blood Group</lable> 
+          <select id="bg" name="bg" class="sel_lis">
             <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
@@ -35,13 +35,14 @@
             <option value="O-">O-</option>
             <option value="AB+">AB+</option>
             <option value="AB-">AB-</option>
-          </select>
-          <input type="checkbox" id="donate" value="bdonor" />
-          Blood
-          <input type="checkbox" id="donate" value="platdonor" />
-           Platelets 
-          <input type="checkbox" id="donate" value="plasdonor" />
-           Plasma
+          </select><br /><br /> 
+          <lable class="inp" >Blood </lable>
+          <input type="checkbox" name ="bd" id="bdonor" value="bdonor" class="checkbox" />
+          <lable class="inp" >Platelets </lable>
+          <input type="checkbox" name ="bd" id="platdonor" value="platdonor" />
+          <lable class="inp" >Plasma </lable>
+          <input type="checkbox" name ="bd" id="plasdonor" value="plasdonor" />
+          
           <input type="button" id="button1" value="sign up" /><br /><br />
         </form>
       </div>
