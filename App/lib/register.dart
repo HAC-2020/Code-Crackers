@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
+import 'loading.dart';
+
 class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();
@@ -27,6 +29,7 @@ class _RegisterState extends State<Register> {
   bool bloodDonor = false;
   bool platDonor = false;
   bool plasDonor = false;
+  bool none = false;
 
   String phoneNo;
   String smsOTP;
@@ -39,6 +42,16 @@ class _RegisterState extends State<Register> {
   final db = Firestore.instance;
 
   Future<void> verifyPhone() async {
+    FocusScope.of(context).unfocus();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 50.0,
+            width: 50.0,
+            child: Loading(),
+          );
+        });
     Toast.show(
         "OTP has been sent to your registered number. Please Wait...\n\nIf you don't receive otp, you have been blocked by our server for multiple logins in a day. Please try again after 24 hours",
         context,
@@ -77,7 +90,8 @@ class _RegisterState extends State<Register> {
           return new AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            title: Text('Enter OTP', style: TextStyle(color: Color(0xff382b73))),
+            title:
+                Text('Enter OTP', style: TextStyle(color: Color(0xff382b73))),
             content: Container(
               padding: const EdgeInsets.only(left: 15.0, right: 15),
               height: 85,
@@ -267,7 +281,7 @@ class _RegisterState extends State<Register> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                      height: 20.0,
+                      height: 50.0,
                     ),
                     Text(
                       "Join Our Family!",
@@ -517,35 +531,54 @@ class _RegisterState extends State<Register> {
                     ),
                     Row(
                       children: <Widget>[
-                        Checkbox(
-                            activeColor: Colors.red,
-                            value: bloodDonor,
-                            onChanged: (value) {
-                              setState(() => bloodDonor = !bloodDonor);
-                            }),
+                        Expanded(
+                          child: Checkbox(
+                              activeColor: Colors.red,
+                              value: bloodDonor,
+                              onChanged: (value) {
+                                setState(() => bloodDonor = !bloodDonor);
+                              }),
+                        ),
                         Text(
                           "Blood",
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        Checkbox(
-                            activeColor: Colors.red,
-                            value: platDonor,
-                            onChanged: (value) {
-                              setState(() => platDonor = !platDonor);
-                            }),
+                        Expanded(
+                          child: Checkbox(
+                              activeColor: Colors.red,
+                              value: platDonor,
+                              onChanged: (value) {
+                                setState(() => platDonor = !platDonor);
+                              }),
+                        ),
                         Text(
                           "Platelets",
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        Checkbox(
-                          activeColor: Colors.red,
-                          value: plasDonor,
-                          onChanged: (value) {
-                            setState(() => plasDonor = !plasDonor);
-                          },
+                        Expanded(
+                          child: Checkbox(
+                            activeColor: Colors.red,
+                            value: plasDonor,
+                            onChanged: (value) {
+                              setState(() => plasDonor = !plasDonor);
+                            },
+                          ),
                         ),
                         Text(
                           "Plasma",
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                        Expanded(
+                          child: Checkbox(
+                            activeColor: Colors.red,
+                            value: none,
+                            onChanged: (value) {
+                              setState(() => none = !none);
+                            },
+                          ),
+                        ),
+                        Text(
+                          "None",
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ],
@@ -571,17 +604,6 @@ class _RegisterState extends State<Register> {
                             verifyPhone();
                           }
                         },
-                        // {
-                        //   //TODO: Register into Firebase.
-                        //   print("Full Name: ${fNameController.text}");
-                        //   print("Email ID: ${emailController.text}");
-                        //   print("Password: ${passController.text}");
-                        //   print("DOB: $dob");
-                        //   print("Blood Group: $blood");
-                        //   print("Blood Donor: $bloodDonor");
-                        //   print("Platelets Donor: $platDonor");
-                        //   print("Plasma Donor: $plasDonor");
-                        // }
                       ),
                     ),
                   ],

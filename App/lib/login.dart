@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifeline/loading.dart';
 import 'package:lifeline/register.dart';
 import 'package:toast/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+
+import 'home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -65,7 +68,8 @@ class _LoginState extends State<Login> {
           return new AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            title: Text('Enter OTP', style: TextStyle(color: Color(0xff382b73))),
+            title:
+                Text('Enter OTP', style: TextStyle(color: Color(0xff382b73))),
             content: Container(
               padding: const EdgeInsets.only(left: 15.0, right: 15),
               height: 85,
@@ -99,7 +103,14 @@ class _LoginState extends State<Login> {
                   _auth.currentUser().then((user) {
                     if (user != null) {
                       Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacementNamed('/registerpage');
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(
+                        PageTransition(
+                          type: PageTransitionType.slideInLeft,
+                          child: Home(),
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
                       Toast.show("You have successfully signed in", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                     } else {
@@ -165,6 +176,16 @@ class _LoginState extends State<Login> {
   }
 
   void submit() async {
+    FocusScope.of(context).unfocus();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 50.0,
+            width: 50.0,
+            child: Loading(),
+          );
+        });
     if (_formKey.currentState.validate()) {
       DocumentReference documentReference =
           Firestore.instance.collection("Users").document(_email);
@@ -178,9 +199,11 @@ class _LoginState extends State<Login> {
           } else
             Toast.show("Invalid Password!!!", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-        } else
+        } else {
+          Navigator.pop(context);
           Toast.show("User not registered!!!", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
+        }
       });
     }
   }
@@ -314,15 +337,12 @@ class _LoginState extends State<Login> {
                                   style: TextStyle(
                                       fontSize: 15.0, color: Colors.black54),
                                 ),
-                                FlatButton(
-                                  onPressed: (){Navigator.pushNamed(context, '/registerpage');},
-                                                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(
-                                        color: Colors.red.shade700,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
-                                  ),
+                                Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                      color: Colors.red.shade700,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.0),
                                 ),
                               ],
                             ),

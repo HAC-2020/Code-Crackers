@@ -18,6 +18,8 @@ dependencies:
   firebase_analytics: ^5.0.16
   cloud_firestore: ^0.13.7
   toast: ^0.1.5
+  font_awesome_flutter: ^8.8.1
+  url_launcher: ^5.5.0
 
 dev_dependencies:
   flutter_test:
