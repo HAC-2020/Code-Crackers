@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
+import 'home.dart';
 import 'loading.dart';
 
 class Update extends StatefulWidget {
@@ -148,8 +149,11 @@ class _UpdateState extends State<Update> {
                         print("Form Added");
                       }).catchError((e) => print(e));
                       Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                      Toast.show("You have successfully Updated", context,
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                      Toast.show("You have successfully Updateed", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       FirebaseAuth.instance.signOut();
                     } else {
@@ -195,7 +199,10 @@ class _UpdateState extends State<Update> {
         print("Form Added");
       }).catchError((e) => print(e));
       Navigator.of(context).pop();
-      Navigator.of(context).pushReplacementNamed('/loginpage');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
       Toast.show("You have successfully Updated Details", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       FirebaseAuth.instance.signOut();

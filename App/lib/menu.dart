@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifeline/home.dart';
 import 'package:lifeline/profile.dart';
+import 'package:lifeline/search.dart';
 
 class Menu extends StatelessWidget {
   TextStyle textStyle = GoogleFonts.lobsterTwo(
@@ -12,65 +13,80 @@ class Menu extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Home()),
-              ),
-              child: Text(
-                "Home",
-                style: textStyle,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Profile()),
-                );
-              },
-              child: Text(
-                "Profile",
-                style: textStyle,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Colors.red,
+            Colors.redAccent,
+            Colors.deepOrange,
+            Colors.deepOrangeAccent,
+            Colors.orange,
+          ],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
-              child: Text(
-                "Search Donor",
-                style: textStyle,
+                ),
+                child: Text(
+                  "Home",
+                  style: textStyle,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            GestureDetector(
-              onTap: () => exit(1),
-              child: Text(
-                "Log Out",
-                style: textStyle,
+              SizedBox(
+                height: 20.0,
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile()),
+                  );
+                },
+                child: Text(
+                  "Profile",
+                  style: textStyle,
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Search()),
+                  );
+                },
+                child: Text(
+                  "Search Donor",
+                  style: textStyle,
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              GestureDetector(
+                onTap: () => exit(1),
+                child: Text(
+                  "Log Out",
+                  style: textStyle,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

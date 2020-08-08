@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lifeline/update.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _ProfileState extends State<Profile> {
           IconButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Profile()),
+              MaterialPageRoute(builder: (context) => Update()),
             ),
             icon: Icon(
               FontAwesomeIcons.pen,

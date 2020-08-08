@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifeline/loading.dart';
+import 'package:lifeline/home.dart';
 import 'package:lifeline/register.dart';
 import 'package:toast/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
-import 'home.dart';
+import 'loading.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -30,6 +30,16 @@ class _LoginState extends State<Login> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> verifyPhone() async {
+    FocusScope.of(context).unfocus();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 50.0,
+            width: 50.0,
+            child: Loading(),
+          );
+        });
     Toast.show(
         "OTP has been sent to your registered number. Please Wait...\n\nIf you don't receive otp, you have been blocked by our server for multiple logins in a day. Please try again after 24 hours",
         context,
@@ -103,13 +113,9 @@ class _LoginState extends State<Login> {
                   _auth.currentUser().then((user) {
                     if (user != null) {
                       Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacement(
-                        PageTransition(
-                          type: PageTransitionType.slideInLeft,
-                          child: Home(),
-                          duration: Duration(seconds: 1),
-                        ),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
                       );
                       Toast.show("You have successfully signed in", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -176,16 +182,6 @@ class _LoginState extends State<Login> {
   }
 
   void submit() async {
-    FocusScope.of(context).unfocus();
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: 50.0,
-            width: 50.0,
-            child: Loading(),
-          );
-        });
     if (_formKey.currentState.validate()) {
       DocumentReference documentReference =
           Firestore.instance.collection("Users").document(_email);
@@ -199,11 +195,9 @@ class _LoginState extends State<Login> {
           } else
             Toast.show("Invalid Password!!!", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-        } else {
-          Navigator.pop(context);
+        } else
           Toast.show("User not registered!!!", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-        }
       });
     }
   }
@@ -299,13 +293,6 @@ class _LoginState extends State<Login> {
                             style: TextStyle(fontSize: 22.0),
                           ),
                           onPressed: submit,
-                          // () {
-                          //   //Todo: Send OTP to registered number and confirm it.
-                          //   print(email.text);
-                          //   print(password.text);
-                          //   email.clear();
-                          //   password.clear();
-                          // }
                         ),
                       ),
                       SizedBox(
