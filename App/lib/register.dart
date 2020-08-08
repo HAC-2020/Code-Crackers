@@ -138,6 +138,7 @@ class _RegisterState extends State<Register> {
                         "Plasma Donor": plasDonor,
                         "City": _city,
                         "State": _state,
+                        "Points": 0,
                         "Registered On": Timestamp.now(),
                       };
                       await db
@@ -185,6 +186,7 @@ class _RegisterState extends State<Register> {
         "Plasma Donor": plasDonor,
         "City": _city,
         "State": _state,
+        "Points": 0,
         "Registered On": Timestamp.now(),
       };
       await db

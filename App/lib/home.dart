@@ -1,21 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifeline/menu.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'donorDetails.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
+class Home extends StatelessWidget {
 
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -65,63 +59,44 @@ class _HomeState extends State<Home> {
               child: ScrollConfiguration(
                 behavior: new ScrollBehavior()
                   ..buildViewportChrome(context, null, AxisDirection.down),
-                child: ListView(
-                  children: <Widget>[
-                    Details(
-                      blood: "O+",
-                      name: "Abhishek Doshi",
-                      city: "Valsad",
-                      state: "Gujarat",
-                      type: "Blood Donor",
-                      number: "+917818044311",
-                      point: "100",
-                    ),
-                    Details(
-                      blood: "O+",
-                      name: "Abhishek Doshi",
-                      city: "Valsad",
-                      state: "Gujarat",
-                      type: "Blood Donor",
-                      number: "+917818044311",
-                      point: "100",
-                    ),
-                    Details(
-                      blood: "O+",
-                      name: "Abhishek Doshi",
-                      city: "Valsad",
-                      state: "Gujarat",
-                      type: "Blood Donor",
-                      number: "+917818044311",
-                      point: "100",
-                    ),
-                    Details(
-                      blood: "O+",
-                      name: "Abhishek Doshi",
-                      city: "Valsad",
-                      state: "Gujarat",
-                      type: "Blood Donor",
-                      number: "+917818044311",
-                      point: "100",
-                    ),
-                    Details(
-                      blood: "O+",
-                      name: "Abhishek Doshi",
-                      city: "Valsad",
-                      state: "Gujarat",
-                      type: "Blood Donor",
-                      number: "+917818044311",
-                      point: "100",
-                    ),
-                    Details(
-                      blood: "O+",
-                      name: "Abhishek Doshi",
-                      city: "Valsad",
-                      state: "Gujarat",
-                      type: "Blood Donor",
-                      number: "+917818044311",
-                      point: "100",
-                    ),
-                  ],
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance
+                      .collection('Users')
+                      // .where("Enrollment No", isEqualTo: enroll)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError)
+                      return Text('Error: ${snapshot.error}');
+                    if (!snapshot.hasData && snapshot.data.documents == null)
+                      return Text('Please try again later...',
+                          style: TextStyle(fontSize: 15));
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Text(
+                          'Retrieving Donors...',
+                          style: TextStyle(fontSize: 20),
+                        );
+                      default:
+                        return ListView(
+                          children: snapshot.data.documents
+                              .map((DocumentSnapshot document) {
+                            return Details(
+                              email: document.documentID,
+                              blood: document['Blood Group'],
+                              name: document['Name'],
+                              city: document['City'],
+                              state: document['State'],
+                              bldon: document['Blood Donor'],
+                              platdon: document['Platelets Donor'],
+                              plasdon: document['Plasma Donor'],
+                              number: document['Phone Number'],
+                              point: document['Points'],
+                            );
+                          }).toList(),
+                        );
+                    }
+                  },
                 ),
               ),
             ),

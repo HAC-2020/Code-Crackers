@@ -7,6 +7,7 @@ import 'package:lifeline/profile.dart';
 import 'package:lifeline/search.dart';
 
 class Menu extends StatelessWidget {
+
   TextStyle textStyle = GoogleFonts.lobsterTwo(
     textStyle: TextStyle(
         fontSize: 40.0, color: Colors.white, fontWeight: FontWeight.bold),

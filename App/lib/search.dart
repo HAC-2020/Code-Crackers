@@ -4,7 +4,9 @@ import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifeline/menu.dart';
+import 'package:lifeline/searchResults.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'donorDetails.dart';
 
@@ -252,65 +254,25 @@ class _SearchState extends State<Search> {
                             "Search",
                             style: TextStyle(fontSize: 22.0),
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchResults(
+                                  city: _city,
+                                  state: _state,
+                                  blood: blood,
+                                  bldon: bloodDonor,
+                                  plasdon: plasDonor,
+                                  platdon: platDonor,
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                   ],
                 ),
               ],
-            ),
-            Details(
-              blood: "O+",
-              name: "Abhishek Doshi",
-              city: "Valsad",
-              state: "Gujarat",
-              type: "Blood Donor",
-              number: "+917818044311",
-              point: "100",
-            ),
-            Details(
-              blood: "O+",
-              name: "Abhishek Doshi",
-              city: "Valsad",
-              state: "Gujarat",
-              type: "Blood Donor",
-              number: "+917818044311",
-              point: "100",
-            ),
-            Details(
-              blood: "O+",
-              name: "Abhishek Doshi",
-              city: "Valsad",
-              state: "Gujarat",
-              type: "Blood Donor",
-              number: "+917818044311",
-              point: "100",
-            ),
-            Details(
-              blood: "O+",
-              name: "Abhishek Doshi",
-              city: "Valsad",
-              state: "Gujarat",
-              type: "Blood Donor",
-              number: "+917818044311",
-              point: "100",
-            ),
-            Details(
-              blood: "O+",
-              name: "Abhishek Doshi",
-              city: "Valsad",
-              state: "Gujarat",
-              type: "Blood Donor",
-              number: "+917818044311",
-              point: "100",
-            ),
-            Details(
-              blood: "O+",
-              name: "Abhishek Doshi",
-              city: "Valsad",
-              state: "Gujarat",
-              type: "Blood Donor",
-              number: "+917818044311",
-              point: "100",
             ),
           ],
         ),

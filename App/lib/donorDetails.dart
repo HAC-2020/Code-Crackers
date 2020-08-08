@@ -1,18 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Details extends StatelessWidget {
-  String blood, name, type, city, state, number, point, message, del;
+  String email, blood, name, city, state, number, message, del;
+  int point;
+  bool bldon = false, platdon = false, plasdon = false;
   Details({
+    this.email,
     this.name,
     this.blood,
-    this.type,
+    this.bldon,
+    this.platdon,
+    this.plasdon,
     this.city,
     this.state,
     this.number,
     this.point,
   });
+
+  _updatePoints() async {
+    Map<String, dynamic> data = <String, dynamic>{
+      "Points": point + 10,
+    };
+    await Firestore.instance
+        .collection("Users")
+        .document(email)
+        .updateData(data)
+        .whenComplete(() {
+      print("Points Updated");
+    }).catchError((e) => print(e));
+  }
+
   @override
   Widget build(BuildContext context) {
     if (blood.endsWith("+"))
@@ -49,65 +69,86 @@ class Details extends StatelessWidget {
                       width: 30.0,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(
+                          height: 6.0,
+                        ),
                         Text(
                           name,
                           style: TextStyle(fontSize: 22.0),
                         ),
-                        SizedBox(
-                          height: 10.0,
+                        Text(
+                          city + ", " + state,
+                          style: TextStyle(
+                            color: Colors.black45,
+                          ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              city + ", " + state,
-                              style: TextStyle(
-                                color: Colors.black45,
+                          children: [
+                            Visibility(
+                              visible: bldon,
+                              child: Text(
+                                "Blood ",
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                ),
                               ),
                             ),
-                            SizedBox(
-                              width: 10.0,
+                            Visibility(
+                              visible: platdon,
+                              child: Text(
+                                "Platelets ",
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                ),
+                              ),
                             ),
-                            Text(
-                              type,
-                              style: TextStyle(
-                                color: Colors.black45,
+                            Visibility(
+                              visible: plasdon,
+                              child: Text(
+                                "Plasma",
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 0.5,
-                        ),
                         Row(
                           children: <Widget>[
                             IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.phoneAlt,
-                                color: Colors.green,
-                                size: 18.0,
-                              ),
-                              onPressed: () => launch("tel: $number"),
-                            ),
+                                icon: Icon(
+                                  FontAwesomeIcons.phoneAlt,
+                                  color: Colors.green,
+                                ),
+                                iconSize: 18.0,
+                                onPressed: () {
+                                  _updatePoints();
+                                  launch("tel: $number");
+                                }),
                             IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.commentDots,
-                                color: Colors.blue,
-                                size: 18.0,
-                              ),
-                              onPressed: () => launch("sms: $number"),
-                            ),
+                                icon: Icon(
+                                  FontAwesomeIcons.commentDots,
+                                  color: Colors.blue,
+                                ),
+                                iconSize: 18.0,
+                                onPressed: () {
+                                  _updatePoints();
+                                  launch("sms: $number");
+                                }),
                             IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.whatsapp,
-                                color: Colors.green,
-                                size: 18.0,
-                              ),
-                              onPressed: () => launch(
-                                  "whatsapp://send?phone=$number&text=$message"),
-                            ),
+                                icon: Icon(
+                                  FontAwesomeIcons.whatsapp,
+                                  color: Colors.green,
+                                ),
+                                iconSize: 18.0,
+                                onPressed: () {
+                                  _updatePoints();
+                                  launch(
+                                      "whatsapp://send?phone=$number&text=$message");
+                                }),
                           ],
                         ),
                       ],
@@ -124,6 +165,7 @@ class Details extends StatelessWidget {
                         ),
                         Text(
                           "$point\nPoints",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 10.0,
                           ),

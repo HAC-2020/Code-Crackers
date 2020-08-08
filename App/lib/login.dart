@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 
 import 'loading.dart';
 
+String email;
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -19,14 +21,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = new GlobalKey<FormState>();
 
-  String _password;
-  String _fname;
-  String _email;
+  String password;
 
-  String phoneNo;
-  String smsOTP;
-  String verificationId;
-  String errorMessage = '';
+  String phoneNo, smsOTP, verificationId, errorMessage = '';
+
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> verifyPhone() async {
@@ -115,7 +113,8 @@ class _LoginState extends State<Login> {
                       Navigator.of(context).pop();
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(
+                            builder: (context) => Home()),
                       );
                       Toast.show("You have successfully signed in", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -141,7 +140,11 @@ class _LoginState extends State<Login> {
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       Navigator.of(context).pop();
-      Navigator.of(context).pushReplacementNamed('/registerpage');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Home()),
+      );
       Toast.show("You have successfully signed in", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     } catch (e) {
@@ -184,13 +187,18 @@ class _LoginState extends State<Login> {
   void submit() async {
     if (_formKey.currentState.validate()) {
       DocumentReference documentReference =
-          Firestore.instance.collection("Users").document(_email);
+          Firestore.instance.collection("Users").document(email);
       documentReference.get().then((datasnapshot) {
         if (datasnapshot.exists) {
-          if (_password == datasnapshot.data['Password'].toString()) {
-            phoneNo = datasnapshot.data['Phone Number'].toString();
-            _fname = datasnapshot.data['Name'].toString();
-            _email = datasnapshot.data["Email Id"].toString();
+          if (password == datasnapshot.data['Password']) {
+            phoneNo = datasnapshot.data['Phone Number'];
+            // fname = datasnapshot.data['Name'];
+            // _email = datasnapshot.data["Email Id"].toString();
+            // dob = datasnapshot.data['Date of Birth'];
+            // blood = datasnapshot.data['Blood Group'];
+            // bldon = datasnapshot.data['Blood Donor'];
+            // platdon = datasnapshot.data['Platelets Donor'];
+            // plasdon = datasnapshot.data['Plasma Donor'];
             verifyPhone();
           } else
             Toast.show("Invalid Password!!!", context,
@@ -243,7 +251,7 @@ class _LoginState extends State<Login> {
                         },
                         style: TextStyle(fontSize: 18.0),
                         keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => _email = value,
+                        onChanged: (value) => email = value,
                         decoration: InputDecoration(
                           hintText: "Enter Email ID",
                           border: OutlineInputBorder(
@@ -264,7 +272,7 @@ class _LoginState extends State<Login> {
                           return null;
                         },
                         style: TextStyle(fontSize: 18.0),
-                        onChanged: (value) => _password = value,
+                        onChanged: (value) => password = value,
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: "Enter Password",

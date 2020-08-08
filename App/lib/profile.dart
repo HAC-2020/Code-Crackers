@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lifeline/update.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'login.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -9,6 +11,29 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String password, fname, phone, dob, blood;
+  bool bldon = false, platdon = false, plasdon = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    DocumentReference documentReference =
+        Firestore.instance.collection("Users").document(email);
+    documentReference.get().then((datasnapshot) {
+      if (datasnapshot.exists) {
+        phone = datasnapshot.data['Phone Number'];
+        fname = datasnapshot.data['Name'];
+        // _email = datasnapshot.data["Email Id"].toString();
+        dob = datasnapshot.data['Date of Birth'];
+        blood = datasnapshot.data['Blood Group'];
+        bldon = datasnapshot.data['Blood Donor'];
+        platdon = datasnapshot.data['Platelets Donor'];
+        plasdon = datasnapshot.data['Plasma Donor'];
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,37 +83,81 @@ class _ProfileState extends State<Profile> {
                 child: ListView(
                   children: <Widget>[
                     profileData(
-                      data: "Name: Abhishek Doshi",
+                      data: "Name: $fname",
                       icon: Icon(
                         FontAwesomeIcons.user,
                         color: Colors.blue,
                       ),
                     ),
                     profileData(
-                      data: "Mobile: +917818044311",
+                      data: "Mobile: $phone",
                       icon: Icon(
                         FontAwesomeIcons.phone,
                         color: Colors.blue,
                       ),
                     ),
                     profileData(
-                      data: "DOB: 26/01/1999",
+                      data: "DOB: $dob",
                       icon: Icon(
                         FontAwesomeIcons.calendar,
                         color: Colors.green,
                       ),
                     ),
                     profileData(
-                      data: "Blood Group: O+",
+                      data: "Blood Group: $blood",
                       icon: Icon(
                         FontAwesomeIcons.tint,
                         color: Colors.red,
                       ),
                     ),
-                    profileData(
-                      data: "Donor Type: Blood Donor",
-                      icon: Icon(FontAwesomeIcons.quoteRight),
-                    ),
+                    Container(
+                      height: 100.0,
+                      child: Card(
+                        child: Center(
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceAround,
+                            spacing: 10.0,
+                            children: <Widget>[
+                              SizedBox(width: 5.0),
+                              Icon(FontAwesomeIcons.quoteRight),
+                              Text(
+                                ' Donor Type:',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                              Visibility(
+                                visible: bldon,
+                                child: Text(
+                                  'Blood Donor',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: platdon,
+                                child: Text(
+                                  'Platelets Donor',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: plasdon,
+                                child: Text(
+                                  'Plasma Donor',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
