@@ -17,25 +17,50 @@
         <span><a href="login.html">Log In</a></span>
       </div>
       <div class="nv1">
-        <form
-          onsubmit="return validateform()"
-          action="find.php"
-          method="POST"
-          name="form"
-        >
-          <input id="tx" type="text" name="email" placeholder="E-Mail" /><br />
+        <form>
+          <input
+            id="email"
+            class="inp"
+            type="text"
+            placeholder="E-Mail"
+          /><br />
 
           <input
-            id="tx"
+            id="pass"
             type="password"
-            name="pass"
             placeholder="password"
+            class="inp"
           /><br /><br />
-
-          <input id="sub" type="submit" value="login" /><br /><br />
-          <a href="reg.html">don'n have a account ? create one 😉</a>
+          <input type="button" id="button1" value="Login" /><br /><br />
+          <a href="registration.html">don'n have a account ? create one </a>
         </form>
       </div>
     </section>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyClhKSi_PH83uLpp9Gx99NAQp_IPrCmDZw",
+        authDomain: "blood-donate-fc907.firebaseapp.com",
+        databaseURL: "https://blood-donate-fc907.firebaseio.com",
+        projectId: "blood-donate-fc907",
+        storageBucket: "blood-donate-fc907.appspot.com",
+        messagingSenderId: "387995307720",
+        appId: "1:387995307720:web:6c5a97cdbe0ade1e5cdffd",
+        measurementId: "G-VN6FHWXVG1",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="login.js"></script>
   </body>
 </html>
