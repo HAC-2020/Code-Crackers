@@ -24,4 +24,5 @@
 	</ul>
 	<br><br>
 	<h3>In this pandemic, we have to help each other! <b>Donate Blood! <br>Be Someone's Lifeline! <br>Be a Hero! </h3>
+	<h3><a href="https://drive.google.com/file/d/1aJQFnD5Sct9pOggvmW4KjYE4GNB9AHEX/view?usp=sharing">Download APK from here!</a>
 </p>
