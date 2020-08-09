@@ -11,8 +11,6 @@ import 'package:flutter/services.dart';
 
 import 'loading.dart';
 
-String email;
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -21,7 +19,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = new GlobalKey<FormState>();
 
-  String password;
+  String email, password, fname, dob, blood;
+  bool bldon = false, platdon = false, plasdon = false;
 
   String phoneNo, smsOTP, verificationId, errorMessage = '';
 
@@ -114,7 +113,16 @@ class _LoginState extends State<Login> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Home()),
+                          builder: (context) => Home(
+                            fname: fname,
+                            dob: dob,
+                            bldon: bldon,
+                            blood: blood,
+                            phone: phoneNo,
+                            plasdon: plasdon,
+                            platdon: platdon,
+                          ),
+                        ),
                       );
                       Toast.show("You have successfully signed in", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -143,7 +151,16 @@ class _LoginState extends State<Login> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => Home()),
+          builder: (context) => Home(
+            fname: fname,
+            dob: dob,
+            bldon: bldon,
+            blood: blood,
+            phone: phoneNo,
+            plasdon: plasdon,
+            platdon: platdon,
+          ),
+        ),
       );
       Toast.show("You have successfully signed in", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -192,13 +209,13 @@ class _LoginState extends State<Login> {
         if (datasnapshot.exists) {
           if (password == datasnapshot.data['Password']) {
             phoneNo = datasnapshot.data['Phone Number'];
-            // fname = datasnapshot.data['Name'];
+            fname = datasnapshot.data['Name'];
             // _email = datasnapshot.data["Email Id"].toString();
-            // dob = datasnapshot.data['Date of Birth'];
-            // blood = datasnapshot.data['Blood Group'];
-            // bldon = datasnapshot.data['Blood Donor'];
-            // platdon = datasnapshot.data['Platelets Donor'];
-            // plasdon = datasnapshot.data['Plasma Donor'];
+            dob = datasnapshot.data['Date of Birth'];
+            blood = datasnapshot.data['Blood Group'];
+            bldon = datasnapshot.data['Blood Donor'];
+            platdon = datasnapshot.data['Platelets Donor'];
+            plasdon = datasnapshot.data['Plasma Donor'];
             verifyPhone();
           } else
             Toast.show("Invalid Password!!!", context,

@@ -10,6 +10,20 @@ import 'donorDetails.dart';
 
 class Home extends StatelessWidget {
 
+  String password, fname, phone, dob, blood;
+  bool bldon = false, platdon = false, plasdon = false;
+
+  Home({
+    this.bldon,
+    this.blood,
+    this.dob,
+    this.fname,
+    this.password,
+    this.phone,
+    this.plasdon,
+    this.platdon,
+  });
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

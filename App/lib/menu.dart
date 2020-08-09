@@ -7,6 +7,18 @@ import 'package:lifeline/profile.dart';
 import 'package:lifeline/search.dart';
 
 class Menu extends StatelessWidget {
+  String fname, phone, dob, blood;
+  bool bldon = false, platdon = false, plasdon = false;
+
+  Menu({
+    this.bldon,
+    this.blood,
+    this.dob,
+    this.fname,
+    this.phone,
+    this.plasdon,
+    this.platdon,
+  });
 
   TextStyle textStyle = GoogleFonts.lobsterTwo(
     textStyle: TextStyle(
@@ -52,7 +64,16 @@ class Menu extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Profile()),
+                    MaterialPageRoute(
+                        builder: (context) => Profile(
+                              fname: fname,
+                              dob: dob,
+                              bldon: bldon,
+                              blood: blood,
+                              phone: phone,
+                              plasdon: plasdon,
+                              platdon: platdon,
+                            )),
                   );
                 },
                 child: Text(

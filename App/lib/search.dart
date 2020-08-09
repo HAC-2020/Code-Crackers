@@ -1,14 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_page_transition/flutter_page_transition.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lifeline/menu.dart';
 import 'package:lifeline/searchResults.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'donorDetails.dart';
 
 class Search extends StatefulWidget {
   @override
